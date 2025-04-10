@@ -30,7 +30,12 @@ function calculate() {
       display.value = 'Math Error';
       return;
     }
-    lastResult = parseFloat(result.toFixed(10)); // Limit decimal places
+    // Handle decimal precision dynamically
+const precision = Math.max(10 - Math.floor(Math.log10(Math.abs(result))), 0);
+lastResult = parseFloat(result.toFixed(precision));
+if (Math.abs(lastResult) >= 1e10 || Math.abs(lastResult) < 1e-6) {
+  lastResult = result.toExponential(8);
+}
     display.value = lastResult;
   } catch (error) {
     display.value = 'Error';
@@ -104,32 +109,55 @@ function evaluateExpression(expression) {
 function factorial(n) {
   if (!Number.isInteger(n) || n < 0) throw new Error('Invalid factorial');
   if (n === 0 || n === 1) return 1;
-  if (n > 170) throw new Error('Factorial too large');
+  if (n > 170) throw new Error('Maximum factorial is 170!');
+  if (n < 0) throw new Error('Negative factorial');
   return n * factorial(n - 1);
 }
 
 // Combination function (nCr)
 function combination(n, r) {
-  return factorial(n) / (factorial(r) * factorial(n - r));
+  if (n < 0 || r < 0 || !Number.isInteger(n) || !Number.isInteger(r)) throw new Error('Invalid input');
+  if (r > n) throw new Error('r cannot exceed n');
+  
+  // Optimized calculation without large factorials
+  if (r > n/2) r = n - r;
+  let result = 1;
+  for (let i = 1; i <= r; i++) {
+    result *= (n - r + i) / i;
+  }
+  return parseFloat(result.toFixed(10));
 }
 
 // Permutation function (nPr)
 function permutation(n, r) {
-  return factorial(n) / factorial(n - r);
+  if (n < 0 || r < 0 || !Number.isInteger(n) || !Number.isInteger(r)) throw new Error('Invalid input');
+  if (r > n) throw new Error('r cannot exceed n');
+  
+  let result = 1;
+  for (let i = n; i > n - r; i--) {
+    result *= i;
+  }
+  return parseFloat(result.toFixed(10));
 }
 
 // Memory Functions with validation
 function memoryAdd() {
   const display = document.getElementById('display');
   const value = parseFloat(display.value);
-  if (!isFinite(value)) return;
+  if (isNaN(value) || !isFinite(value)) {
+    display.value = 'Invalid Input';
+    return;
+  }
   memory = parseFloat((memory + value).toFixed(10));
 }
 
 function memorySubtract() {
   const display = document.getElementById('display');
   const value = parseFloat(display.value);
-  if (!isFinite(value)) return;
+  if (isNaN(value) || !isFinite(value)) {
+    display.value = 'Invalid Input';
+    return;
+  }
   memory = parseFloat((memory - value).toFixed(10));
 }
 
