@@ -1,0 +1,120 @@
+/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.calculator {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 25px;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 380px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+h1 {
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #2d3748;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#display {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 25px;
+  text-align: right;
+  padding: 15px;
+  font-size: 24px;
+  border: none;
+  border-radius: 12px;
+  background: #f8fafc;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #1a202c;
+  font-weight: 500;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 5px;
+}
+
+button {
+  padding: 15px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #2d3748;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  min-height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  background: #f8fafc;
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button.operator {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+button.operator:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+button:nth-last-child(1) {
+  background: linear-gradient(135deg, #38b2ac 0%, #4fd1c5 100%);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+button:nth-last-child(1):hover {
+  background: linear-gradient(135deg, #4fd1c5 0%, #38b2ac 100%);
+}
+
+@media (max-width: 480px) {
+  .calculator {
+    width: 100%;
+    max-width: 380px;
+    padding: 20px;
+  }
+
+  button {
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+}
