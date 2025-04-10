@@ -75,15 +75,23 @@ function evaluateExpression(expression) {
       if (n < 0 || n > 170) throw new Error('Factorial out of range');
       return factorial(n);
     })
-    .replace(/C\((\d+),(\d+)\)/g, (match, n, r) => {
-      n = Number(n); r = Number(r);
-      if (n < r || n < 0 || r < 0) throw new Error('Invalid combination');
-      return combination(n, r);
+    .replace(/C\((-?\d+\.?\d*),(-?\d+\.?\d*)\)/g, (match, n, r) => {
+      n = Math.round(Number(n));
+      r = Math.round(Number(r));
+      try {
+        return combination(n, r);
+      } catch (e) {
+        throw new Error('Invalid combination');
+      }
     })
-    .replace(/P\((\d+),(\d+)\)/g, (match, n, r) => {
-      n = Number(n); r = Number(r);
-      if (n < r || n < 0 || r < 0) throw new Error('Invalid permutation');
-      return permutation(n, r);
+    .replace(/P\((-?\d+\.?\d*),(-?\d+\.?\d*)\)/g, (match, n, r) => {
+      n = Math.round(Number(n));
+      r = Math.round(Number(r));
+      try {
+        return permutation(n, r);
+      } catch (e) {
+        throw new Error('Invalid permutation');
+      }
     });
 
   // Evaluate and handle division by zero
